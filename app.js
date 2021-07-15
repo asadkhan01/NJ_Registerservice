@@ -1,60 +1,30 @@
- var express - require("express");
-
-var config require("./config/config"); =
-
-var responseHelper
-
-require("./helpers/response");
-
-var logger require("morgan"); var path require("path");
-
-var cors => require("cors");
-
-var bodyParser require("body-parser");
-
-var validator
-
-=
-
-require("express-validator");
-
+var express = require("express");
+var config  = require("./config/config"); 
+var responseHelper = require("./helpers/response");
+var logger  = require("morgan");
+var path = require("path");
+var cors = require("cors");
+var bodyParser = require("body-parser");
+var validator = require("express-validator");
 const auth = require("./helpers/auth");
-
 require("./db");
-
 var app = express();
-
 /* secure api */
-
-app.use(auth.verifyToken);|
-
-var corsOptions {
-
-origin:
-
+app.use(auth.verifyToken);
+var corsOptions = {
+origin: "*",
 methods: "GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS",
-
 preflightContinue: false,
-
 optionsSuccessStatus: 204,
+allowedHeaders : "Content-Type, X-Requested-With, authorization, accesstoken, sessionid",
+}
 
-allowedHeaders.
- };
-
-"Content-Type, X-Requested-With, authorization, accesstoken, sessionid",
-
- app.responseHelper = responseHelper;
+app.responseHelper = responseHelper;
 
 app.use(cors (corsOptions));
-
- app.use(logger ("dev"));
-
-
-
+app.use(logger ("dev"));
 // parse application/json
-
 app.use(express.json({ limit: "50mb" }));
-
 app.use(express.urlencoded({ limit: "50mb", parameterLimit: 9150000 }));
 
 
@@ -69,7 +39,7 @@ app.use(express.urlencoded({ limit: "50mb", parameterLimit: 9150000 }));
 
 // extended: true,
 
- 11 parameterLimit: 50000,
+ parameterLimit: 50000,
 
 // })
 
@@ -148,21 +118,12 @@ next(err);
  });
 
  var server = app.listen(config.PORT, function () {
-
- console.log("Port: " + config.PORT);
-
- var host = server.address().address;
-
+console.log("Port: " + config.PORT);
+var host = server.address().address;
 host = host === ":" ? "localhost": host;
-
 var port = server.address().port;
-
  module.exports = app;
-
 return {
-
 field: param,
-
 msg: msg,
-
 I
